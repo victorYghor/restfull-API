@@ -39,14 +39,14 @@ public class StudentsController {
         if(!studentsModelList.isEmpty()) {
             for(StudentsModel student : studentsModelList) {
                 UUID id = student.getId();
-                student.add(linkTo(methodOn(StudentsController.class).getOneProduct(id)).withSelfRel());
+                student.add(linkTo(methodOn(StudentsController.class).getOneStudent(id)).withSelfRel());
             }
         }
         return ResponseEntity.status(HttpStatus.OK).body(studentsRepository.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getOneProduct(@PathVariable(value="id") UUID id) {
+    public ResponseEntity<Object> getOneStudent(@PathVariable(value="id") UUID id) {
 
         Optional<StudentsModel> s = studentsRepository.findById(id);
         if(s.isEmpty()) {
@@ -55,25 +55,25 @@ public class StudentsController {
         s.get().add(linkTo(methodOn(StudentsController.class).getAllStudents()).withSelfRel());
         return ResponseEntity.status(HttpStatus.OK).body(s.get());
     }
-
-    @PutMapping("/students/{id}")
+    
+    @PutMapping("/{id}")
     public ResponseEntity<Object> updateProduct(@PathVariable(value="id") UUID id, @RequestBody @Valid StudentsRecord studentsRecord) {
         var s = studentsRepository.findById(id);
         if(s.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found.");
         }
-        var productModel = s.get();
-        BeanUtils.copyProperties(studentsRecord, productModel);
-        return ResponseEntity.status(HttpStatus.OK).body(studentsRepository.save(productModel));
+        var studentModel = s.get();
+        BeanUtils.copyProperties(studentsRecord, studentModel);
+        return ResponseEntity.status(HttpStatus.OK).body(studentsRepository.save(studentModel));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteProduct(@PathVariable(value="id") UUID id) {
-        Optional<StudentsModel> productO = studentsRepository.findById(id);
-        if (productO.isEmpty()) {
+    public ResponseEntity<Object> deleteStudent(@PathVariable(value="id") UUID id) {
+        Optional<StudentsModel> student = studentsRepository.findById(id);
+        if (student.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found.");
         }
-        studentsRepository.delete(productO.get());
+        studentsRepository.delete(student.get());
         return ResponseEntity.status(HttpStatus.OK).body("Product deleted successfully.");
     }
 

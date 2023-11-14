@@ -11,7 +11,7 @@ public record StudentsRecord(
         @NotNull Integer age,
         @NotNull Integer firstGrade,
         @NotNull Integer secondGrade,
-        @NotNull Integer teacherName,
+        @NotNull String teacherName,
         @NotNull Integer roomNumber
 ) implements Serializable {
 

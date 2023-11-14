@@ -21,7 +21,7 @@ public class StudentsModel extends RepresentationModel<StudentsModel> implements
     private Integer age;
     private Integer firstGrade;
     private Integer secondGrade;
-    private Integer teacherName;
+    private String teacherName;
     private Integer roomNumber;
 
     public Integer getFirstGrade() {
@@ -40,11 +40,11 @@ public class StudentsModel extends RepresentationModel<StudentsModel> implements
         this.secondGrade = secondGrade;
     }
 
-    public Integer getTeacherName() {
+    public String getTeacherName() {
         return teacherName;
     }
 
-    public void setTeacherName(Integer teacherName) {
+    public void setTeacherName(String teacherName) {
         this.teacherName = teacherName;
     }
 
